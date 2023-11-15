@@ -4,11 +4,13 @@ import cors from 'cors'
 import db from './database/db.js'
 // importamos el enrutador
 import userRoutes from './routes/routes.js'
+import routerWorker from './routes/routesWorker.js';
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use('/users',userRoutes)
+app.use('/worker',routerWorker)
 
 try {
     await db.authenticate()

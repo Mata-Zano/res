@@ -15,13 +15,19 @@ export const getAllUsers = async (req, res)=>{
 export const getUser = async (req, res) =>{
     try {
         const user = await UserModel.findAll({
-            where :{ id: req.params.id}
+            where :{ rut: req.params.rut,
+            contrato: req.query.contrato}
         })
-        res.json(user[0])
+        if (user.length > 0) {
+            res.json(user[0]);
+        } else {
+            res.json({mensaje: "No se encontró un usuario con ese RUT y Numero de contrato"});
+        }
     } catch (error) {
-        res.json({mensaje: error.mensaje})
+        res.json({mensaje: error.message})
     }
 }
+
 
 // Crear un registro
 export const createUser = async (req, res) =>{
